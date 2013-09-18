@@ -1,0 +1,25 @@
+2013-04-11 10:27:25 r11366 Python 2.7.3 login.py
+2013-04-11 10:31:03 r11366 Python 2.7.3 replace.py "-page=క్రికెట్ పదజాలం"
+2013-04-11 10:32:33 r11366 Python 2.7.3 replace.py "-page=బ్రహ్మపురాణాం"
+2013-04-11 10:34:34 r11366 Python 2.7.3 replace.py "-log" "-page=బ్రహ్మపురాణాం"
+2013-04-11 10:36:38 r11366 Python 2.7.3 replace.py
+2013-05-29 00:44:34 r11366 Python 2.7.3 Stublist_updater.py
+2013-05-29 00:48:00 r11366 Python 2.7.3 Stublist_updater.py
+2013-05-29 00:53:52 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:"
+2013-05-29 00:54:11 r11366 Python 2.7.3 Stublist_updater.py "-lang:te" "-family:wikipedia" "-log" "-always"
+2013-05-29 00:55:32 r11366 Python 2.7.3 Stublist_updater.py "-lang:te" "-family:wikipedia" "-log" "-always"
+2013-05-29 01:16:43 r11366 Python 2.7.3 vyzreplace.py
+2013-06-11 22:49:42 r11366 Python 2.7.3 vyzreplace.py
+2013-06-12 01:41:20 r11366 Python 2.7.3 vyzreplace.py
+2013-06-12 16:10:12 r11366 Python 2.7.3 vyzreplace.py
+2013-06-21 08:46:37 r11366 Python 2.7.3 vyzreplace.py
+2013-06-21 22:15:57 r11366 Python 2.7.3 vyzreplace.py
+2013-06-23 00:23:36 r11366 Python 2.7.3 vyzreplace.py
+2013-06-23 09:36:18 r11366 Python 2.7.3 vyzreplace.py
+2013-06-24 11:45:09 r11366 Python 2.7.3 replace.py "-l" "te"
+2013-06-24 11:46:07 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:"
+2013-06-24 11:46:26 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:మద్య వ్యసనం"
+2013-06-24 11:47:41 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:జెస్సికా లాల్"
+2013-06-24 11:51:12 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:మత్తుపదార్థాల_దుర్వినియోగం"
+2013-06-24 11:53:17 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:బ్రాందీ"
+2013-06-24 11:59:20 r11366 Python 2.7.3 replace.py "-lang:te" "-family:wikipedia" "-log" "-always" "-page:మద్యపానం"

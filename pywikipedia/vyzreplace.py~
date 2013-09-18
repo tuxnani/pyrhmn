@@ -1,0 +1,105 @@
+#!/usr/bin/python
+# -*- coding: utf-8  -*-
+"""this is Vyzbot.
+"""
+import wikipedia, pagegenerators, catlib
+import sys, touch, replace, string, category, login, os
+
+s=wikipedia.Site('te')
+login.LoginManager('rhmn_288', False, s) #replace xxxxx with bot's password
+
+reptext=[(u'పాటశాల', u'పాఠశాల'),
+            (u'వ్రుత్తి', u'వృత్తి'),
+            (u'క్రుషి', u'కృషి'),
+            (u'ప్రదమ', u'ప్రథమ'),
+            (u'అథిక', u'అధిక'),
+            (u'ప్రదేస్', u'ప్రదేశ్'),
+            (u'మద్య', u'మధ్య'),
+            (u'ఆశియా', u'ఆసియా'),
+            (u'దక్షిన', u'దక్షిణ'),
+            (u'చెక్కర', u'చక్కెర'),
+            (u'టెలిపోన్', u'టెలిఫోన్'),
+            (u'పోన్', u'ఫోన్'),
+            (u'సమచారం', u'సమాచారం'),
+            (u'ప్రత్యెక', u'ప్రత్యేక'),
+            (u'విదుదల', u'విడుదల'),
+            (u'పరిస్తితి', u'పరిస్థితి'),
+            (u'ఇకడ', u'ఇక్కడ'),
+            (u'అవుసరం', u'అవసరం'),
+            (u'ప్రచుర్యం', u'ప్రాచుర్యం'),
+            (u'పెర్లు', u'పేర్లు'),
+            (u'పాటశాల', u'పాఠశాల'),
+            (u'రాష్త్ర', u'రాష్ట్ర'),
+            (u'వ్రుత్తి', u'వృత్తి'),
+            (u'క్రుషి', u'కృషి'),
+            (u'ప్రదమ', u'ప్రథమ'),
+            (u'అథిక', u'అధిక'),
+            (u'చైర్మన్', u'ఛైర్మన్'),
+            (u'అద్యక్ష', u'అధ్యక్ష'),
+            (u'ఉందును', u'ఉండును'),
+            (u'ప్రదర్సన', u'ప్రదర్శన'),
+            (u'వాంచ', u'వాంఛ'),
+            (u'రెద్ది', u'రెడ్డి'),
+            (u'శాస్వత', u'శాశ్వత'),
+            (u'తరవాత', u'తరువాత'),
+            (u'అబివృద్ధి', u'అభివృద్ధి'),
+            (u'పభుత్వ', u'ప్రభుత్వ'),
+            (u'వైవిద్య', u'వైవిధ్య'),
+            (u'రఛయిత', u'రచయిత'),
+            (u'అద్యక్షుడు', u'అధ్యక్షుడు'),
+            (u'జర్గిన', u'జరిగిన'),
+            (u'గర్బవతి', u'గర్భవతి'),
+            (u'కల్గిన', u'కలిగిన'),
+            (u'నుండీ', u'నుండి'),
+            (u'జాతియ, జతీయ', u'జాతీయ'),
+            (u'బాద్యత', u'బాధ్యత'),
+            (u'వాతవరణం', u'వాతావరణం'),
+            (u'లభిస్థుంది', u'లభిస్తుంది'),
+            (u'సంత్రుప్తి', u'సంతృప్తి'),
+            (u'సాదనం', u'సాధనం'),
+            (u'రంద్రం', u'రంధ్రం'),
+            (u'ఛెరువు', u'చెరువు'),
+            (u'సంబందం', u'సంబంధం'),
+            (u'సాదారణం', u'సాధారణం'),
+            (u'మాత్రు', u'మాతృ'),
+            (u'సందర్బం', u'సందర్భం'),
+            (u'ప్రబావం', u'ప్రభావం'),
+            (u'ఛరిత్ర', u'చరిత్ర'),
+            (u'లబించింది', u'లభించింది'),
+            (u'బాద్యత', u'బాధ్యత'),
+            (u'పరిది', u'పరిధి'),
+            (u'తర్వత', u'తర్వాత'),
+            (u'ప్రారంబం', u'ప్రారంభం'),
+            (u'దర్సకత్వం', u'దర్శకత్వం'),
+            (u'బారతీయ', u'భారతీయ'),
+            (u'అదికారి', u'అధికారి'),
+            (u'మరుయు', u'మరియు'),
+            (u'త్రుప్తి', u'తృప్తి'),
+            (u'మెర్రుగ్గా', u'మెరుగ్గా'),
+            (u'స్రుష్టి', u'సృష్టి'),
+            (u'ద్రుష్టి', u'దృష్టి'),
+            (u'వద్ధ', u'వద్ద'),
+            (u'డిల్లీ', u'ఢిల్లీ'),
+            (u'ప్రదర్సన', u'ప్రదర్శన'),]
+exceptions= []
+acceptall = True
+start='!'
+namespace = None
+myPagegen=pagegenerators.AllpagesPageGenerator(start, namespace)
+'''
+# in long comments this is another variation to get pages in a specific category
+reptext=[(u'Wikipedia basic information', u'వికీపీడియా మౌళిక సమాచారము'),]
+oldCatTitle=u'Wikipedia basic information'
+newCatTitle=u'వికీపీడియా మౌళిక సమాచారము'
+exceptions= []
+acceptall = True
+start='!'
+namespace = u'Category'
+inPlace = False
+myPagegen=pagegenerators.CategorizedPageGenerator(oldCatTitle, recurse = False)
+'''                                                  
+vyzrep=replace.ReplaceRobot(myPagegen, reptext, exceptions,
+                            acceptall)
+vyzrep.run()
+
+wikipedia.stopme()
