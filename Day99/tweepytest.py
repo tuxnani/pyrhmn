@@ -5,11 +5,11 @@ from tweepy.streaming import StreamListener
 import json
 from textblob import TextBlob
 
-ckey = 'QS0YzTmKAI2I0VLtZ7b49raaB'
-csecret = 'psnulOfswOUCthCKwcQTahNtSs5hPYPI2gHUBYyplAnWQvcV32'
+ckey = ''
+csecret = ''
 
-atoken = '17643877-WtMnPyNlhWIBIxMHSUjGxvgAODnZWwRzqxYFqRTt3'
-asecret = 'WB7gWnSO8bHim3J0h1DOgdg2LYtbvC5kBthQliRxWUuFB'
+atoken = ''
+asecret = ''
 
 #auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 #auth.set_access_token(access_token, access_token_secret)
