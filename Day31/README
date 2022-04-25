@@ -1,0 +1,7 @@
+Usage:
+1. Install chrome webdriver
+2. Give proper path of the downloaded chrome driver
+3. run the script
+Example:
+$ python3 scraper.py --url https://www.tripadvisor.in/Hotel_Review-g304554-d307105-Reviews-The_Orchid_Mumbai_Vile_Parle-Mumbai_Maharashtra.html
+
