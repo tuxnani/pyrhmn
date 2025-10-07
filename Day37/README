@@ -1,0 +1,3 @@
+This python script takes folder id of google drive and displays contents of the folder with file size
+Ensure to accompany credentials.json with the script
+Make sure the user that you will login has permissions to view the contents of folder.
