@@ -1,0 +1,1 @@
+This script when run shows a gui to install dependencies, then login using google and then display the google drive as a view to user with option to export the file names and sizes into a spreadsheet.
