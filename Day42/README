@@ -1,0 +1,1 @@
+This ocr script picks up pdf, chunks it into 10 paged smaller pdfs and does pdf on those smaller pdf files. Additioonally, the script combines text outputs from all the text outputs and cleans up pdf and temporary textr files created.
