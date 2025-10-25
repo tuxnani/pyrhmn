@@ -1,0 +1,1 @@
+This script implements a tiered data cleaning and outlier detection pipeline using pandas and scikit-learn. It includes options for shallow, normal, and deep cleaning levels, as well as various outlier detection methods.
