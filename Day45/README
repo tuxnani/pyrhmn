@@ -1,0 +1,211 @@
+# Document AI OCR Script for Multi-Page, Multi-Column Newspapers
+
+This Python script processes multi-page, multi-column newspaper PDFs (including Telugu language newspapers) using Google Cloud Document AI. It automatically uploads PDFs to Google Cloud Storage, performs OCR processing, and downloads structured text output with pages and columns clearly marked.
+
+## Features
+
+- **Multi-page PDF support**: Process entire newspaper issues at once
+- **Column detection and ordering**: Automatically detects columns and orders them left-to-right
+- **Telugu language support**: Optimized for Telugu newspapers (supports other languages too)
+- **Automated workflow**: Handles upload, processing, download, and cleanup automatically
+- **Structured output**: Clear markers for pages and columns in the output text file
+- **Temporary file cleanup**: Automatically removes temporary files from Google Cloud Storage
+
+## Prerequisites
+
+### 1. Google Cloud Platform Setup
+
+- A Google Cloud Platform (GCP) project with billing enabled
+- Document AI API enabled
+- Two Google Cloud Storage buckets created:
+  - One for input files
+  - One for output files
+
+### 2. Document AI Processor
+
+- Create a Document AI OCR processor in your GCP project
+- Note down the Processor ID
+- Ensure the processor supports your target language (Telugu)
+
+### 3. Service Account Credentials
+
+- Create a Service Account in your GCP project
+- Grant the following roles to the service account:
+  - `Document AI API User`
+  - `Storage Object Admin` (for both buckets)
+- Download the Service Account JSON key file
+
+### 4. Python Environment
+
+- Python 3.7 or higher
+- Required packages (install via pip):
+
+```bash
+pip install google-cloud-documentai
+pip install google-cloud-storage
+pip install google-auth
+```
+
+## Configuration
+
+Edit the configuration section at the top of the script:
+
+```python
+PROJECT_ID = "YOUR_PROJECT_ID"              # Your GCP Project ID
+LOCATION = "us"                             # Document AI processor location ('us' or 'eu')
+PROCESSOR_ID = "a0b1c2d3e4f5g6h7"          # Your OCR Processor ID
+GCS_INPUT_BUCKET = "my-newspaper-input-data"    # Input GCS bucket name
+GCS_OUTPUT_BUCKET = "my-ocr-results-output"     # Output GCS bucket name
+LOCAL_PDF_PATH = "path/to/your/multipage_newspaper.pdf"  # Input PDF path
+LOCAL_OUTPUT_TEXT_PATH = "newspaper_ocr_output.txt"      # Output text file path
+CREDENTIALS_JSON_PATH = "path/to/your/credentials.json"  # Service Account key file
+```
+
+### How to Find Your Configuration Values
+
+#### Project ID
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Click on the project dropdown at the top
+3. Your Project ID is shown next to the project name
+
+#### Processor ID
+1. Go to [Document AI Processors](https://console.cloud.google.com/ai/document-ai/processors)
+2. Click on your OCR processor
+3. The Processor ID is in the URL or in the processor details
+
+#### Location
+- Use `"us"` for US-based processors
+- Use `"eu"` for EU-based processors
+- Check your processor's location in the Document AI console
+
+## Usage
+
+### Basic Usage
+
+1. Update the configuration variables in the script
+2. Place your PDF file at the specified `LOCAL_PDF_PATH`
+3. Run the script:
+
+```bash
+python documet_ocr.py
+```
+
+### Output Format
+
+The script generates a text file with the following structure:
+
+```
+--- NEWSPAPER PAGE 1 ---
+
+--- COLUMN 1 ---
+[Text from first column]
+
+--- COLUMN 2 ---
+[Text from second column]
+
+--- COLUMN 3 ---
+[Text from third column]
+
+
+--- NEWSPAPER PAGE 2 ---
+
+--- COLUMN 1 ---
+[Text from first column]
+
+...
+```
+
+## Workflow
+
+The script follows this automated workflow:
+
+1. **Authentication**: Loads credentials from the Service Account JSON file
+2. **Upload**: Uploads the local PDF to Google Cloud Storage (input bucket)
+3. **Processing**: Sends a batch processing request to Document AI
+4. **Waiting**: Polls the operation until processing is complete
+5. **Download**: Downloads the JSON results from GCS (output bucket)
+6. **Structuring**: Parses the results, detects columns, sorts left-to-right
+7. **Output**: Writes structured text to the local output file
+8. **Cleanup**: Deletes temporary files from both GCS buckets
+
+## Error Handling
+
+The script includes comprehensive error handling for:
+
+- Missing credentials file
+- Invalid PDF path
+- GCS bucket access issues
+- Document AI processing errors
+- Network failures
+
+All errors are logged with detailed messages to help troubleshoot issues.
+
+## Cost Considerations
+
+Using this script incurs Google Cloud costs:
+
+- **Document AI**: Charged per page processed (see [pricing](https://cloud.google.com/document-ai/pricing))
+- **Cloud Storage**: Storage and operations costs (usually minimal for temporary files)
+- **Network**: Data transfer costs (usually minimal)
+
+The script automatically cleans up temporary files to minimize storage costs.
+
+## Limitations
+
+- **File size**: Large PDFs may take significant time to process
+- **Processing time**: Document AI batch processing can take several minutes for multi-page documents
+- **API quotas**: Subject to Document AI API quotas and rate limits
+- **Column detection**: Works best with clearly defined columns; may need adjustment for complex layouts
+
+## Troubleshooting
+
+### "Credentials file not found"
+- Verify `CREDENTIALS_JSON_PATH` points to a valid Service Account JSON key file
+- Ensure the file is not an OAuth 2.0 Client ID file
+
+### "Permission denied" errors
+- Check that your Service Account has the required IAM roles
+- Verify both GCS buckets exist and are accessible
+
+### "Unknown field" errors
+- Ensure you're using the latest version of the `google-cloud-documentai` library
+- Update with: `pip install --upgrade google-cloud-documentai`
+
+### Poor column detection
+- Try adjusting the column sorting logic in `download_and_structure_ocr()`
+- Consider using Document AI's layout detection features
+
+### Processing takes too long
+- This is normal for large, multi-page documents
+- Consider processing in smaller batches if needed
+
+## Advanced Customization
+
+### Adjusting Column Detection
+
+The column detection logic uses horizontal position (x-coordinate) of text blocks. You can modify the sorting algorithm in the `download_and_structure_ocr()` function to:
+
+- Use vertical clustering for complex layouts
+- Apply custom thresholds for column boundaries
+- Implement multi-level sorting (top-to-bottom, then left-to-right)
+
+### Supporting Additional Languages
+
+Document AI automatically detects languages, but you can optimize for specific languages by:
+
+- Using language-specific processors
+- Adjusting the processor settings in the Document AI console
+
+## License
+[CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/)
+
+## Support
+
+For issues related to:
+- **Document AI API**: See [Document AI documentation](https://cloud.google.com/document-ai/docs)
+- **Google Cloud Storage**: See [GCS documentation](https://cloud.google.com/storage/docs)
+- **Script bugs**: Review the error messages and traceback for debugging information
+
+## Version History
+
+- **v1.0**: Initial release with multi-page, multi-column support
