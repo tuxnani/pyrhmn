@@ -1,0 +1,1 @@
+This script implements an NLP data augmenter that performs synonym replacement and random deletion on text. It includes functionality for both single text and pandas Series augmentation.
