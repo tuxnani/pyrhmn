@@ -1,0 +1,1 @@
+This class provides a text normalization pipeline tailored for low-resource languages, including features like Unicode handling, diacritic removal, and custom substitutions.
