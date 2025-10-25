@@ -1,0 +1,266 @@
+# PDF to Image PDF Converter
+
+A Python script to convert text-based PDFs to image-based PDFs, specifically designed to solve text extraction issues commonly found in Telugu PDFs and other complex script documents.
+
+## Problem Statement
+
+Telugu PDFs (and PDFs with other Indic scripts) often have text encoding issues where:
+- Copy-pasting text produces garbled/junk characters
+- Text extraction tools fail to recognize proper Unicode
+- Font embedding issues cause display problems
+- Searching within the PDF returns incorrect results
+
+This script solves these issues by converting each page to an image, creating a new PDF that displays correctly everywhere.
+
+## Features
+
+- ✅ Converts text-based PDFs to image-based PDFs
+- ✅ Configurable DPI (default: 120 DPI for optimal quality/size balance)
+- ✅ Preserves all pages in original order
+- ✅ Progress indicator during conversion
+- ✅ File size comparison (before/after)
+- ✅ Auto-generates output filename if not specified
+- ✅ Works with Telugu, Sanskrit, and all Indic scripts
+- ✅ Command-line interface for easy automation
+
+## Requirements
+
+### Python Version
+- Python 3.6 or higher
+
+### Python Packages
+```bash
+pip install pdf2image pillow img2pdf
+```
+
+### System Dependencies
+
+**Poppler** (required by pdf2image)
+
+#### Ubuntu/Debian/Linux Mint
+```bash
+sudo apt-get update
+sudo apt-get install poppler-utils
+```
+
+#### Fedora/RHEL/CentOS
+```bash
+sudo dnf install poppler-utils
+```
+
+#### macOS
+```bash
+brew install poppler
+```
+
+#### Windows
+1. Download from [poppler-windows releases](https://github.com/oschwartz10612/poppler-windows/releases/)
+2. Extract the archive
+3. Add the `bin` folder to your system PATH
+
+## Installation
+
+1. **Clone or download the script:**
+   ```bash
+   # Download the script
+   wget https://your-repo/pdf_to_image_pdf.py
+   # or copy it manually
+   ```
+
+2. **Install Python dependencies:**
+   ```bash
+   pip install pdf2image pillow img2pdf
+   ```
+
+3. **Install Poppler** (see system dependencies above)
+
+4. **Verify installation:**
+   ```bash
+   python pdf_to_image_pdf.py
+   ```
+   You should see the usage instructions.
+
+## Usage
+
+### Basic Syntax
+```bash
+python pdf_to_image_pdf.py <input.pdf> [output.pdf] [dpi]
+```
+
+### Examples
+
+#### 1. Basic conversion (120 DPI, auto-generate output name)
+```bash
+python pdf_to_image_pdf.py telugu_book.pdf
+```
+**Output:** `telugu_book_image.pdf` at 120 DPI
+
+#### 2. Specify output filename
+```bash
+python pdf_to_image_pdf.py telugu_book.pdf converted_book.pdf
+```
+**Output:** `converted_book.pdf` at 120 DPI
+
+#### 3. Custom DPI with output filename
+```bash
+python pdf_to_image_pdf.py telugu_book.pdf output.pdf 150
+```
+**Output:** `output.pdf` at 150 DPI
+
+#### 4. Custom DPI with auto-generated filename
+```bash
+python pdf_to_image_pdf.py telugu_book.pdf 150
+```
+**Output:** `telugu_book_image.pdf` at 150 DPI
+
+#### 5. High-quality conversion for printing
+```bash
+python pdf_to_image_pdf.py document.pdf print_version.pdf 300
+```
+**Output:** `print_version.pdf` at 300 DPI
+
+## DPI Guidelines
+
+Choose DPI based on your needs:
+
+| DPI | Use Case | File Size | Quality |
+|-----|----------|-----------|---------|
+| 72-96 | Screen viewing only, smaller files | Small | Basic |
+| **120** | **General reading (recommended)** | **Moderate** | **Good** |
+| 150 | Better quality for detailed text | Moderate-Large | Very Good |
+| 200 | High-quality archival | Large | Excellent |
+| 300 | Print-ready documents | Very Large | Print Quality |
+
+**Recommendation:** Start with 120 DPI. Increase only if you need better quality for specific purposes.
+
+## Output
+
+The script provides detailed progress information:
+
+```
+Converting: telugu_book.pdf
+Output will be saved to: telugu_book_image.pdf
+Resolution: 120 DPI
+
+Converting PDF pages to images...
+Successfully converted 50 page(s) to images
+Processing page 50/50...
+Creating image-based PDF...
+
+✓ Conversion complete!
+Input file size: 2.45 MB
+Output file size: 8.73 MB
+Output saved to: telugu_book_image.pdf
+```
+
+## Common Use Cases
+
+### For Telugu Learners and Researchers
+```bash
+# Convert Telugu e-books with encoding issues
+python pdf_to_image_pdf.py telugu_grammar.pdf
+
+# Convert classical Telugu literature
+python pdf_to_image_pdf.py kalidas_works.pdf readable_version.pdf 150
+```
+
+### For Library Digitization
+```bash
+# Standard quality for digital archives
+python pdf_to_image_pdf.py manuscript.pdf archive.pdf 150
+
+# Print-quality for preservation
+python pdf_to_image_pdf.py rare_document.pdf preservation.pdf 300
+```
+
+### Batch Conversion
+Create a simple bash script:
+```bash
+#!/bin/bash
+for file in *.pdf; do
+    python pdf_to_image_pdf.py "$file" 120
+done
+```
+
+## Troubleshooting
+
+### Error: "Required libraries not found"
+**Solution:** Install Python packages:
+```bash
+pip install pdf2image pillow img2pdf
+```
+
+### Error: "pdftoppm is not installed"
+**Solution:** Install Poppler (see system dependencies section)
+
+### Error: "Input file not found"
+**Solution:** Check the file path and ensure the PDF exists:
+```bash
+ls -l your_file.pdf
+```
+
+### Output file is too large
+**Solution:** Reduce DPI:
+```bash
+python pdf_to_image_pdf.py input.pdf output.pdf 96
+```
+
+### Output quality is too low
+**Solution:** Increase DPI:
+```bash
+python pdf_to_image_pdf.py input.pdf output.pdf 150
+```
+
+### Memory error on large PDFs
+**Solution:** The script processes pages sequentially, but very large PDFs might need chunking. Consider splitting the PDF first or increasing available RAM.
+
+## Technical Details
+
+- **Image Format:** JPEG (85% quality) for optimal size/quality balance
+- **Color Space:** RGB
+- **Compression:** Applied by img2pdf library
+- **Page Processing:** Sequential (one page at a time)
+- **Memory Usage:** Moderate (depends on DPI and page count)
+
+## Limitations
+
+- ❌ Text is no longer searchable (converted to images)
+- ❌ File size increases (images are larger than text)
+- ❌ Cannot copy/paste text from the output PDF
+- ✅ But: All visual content displays perfectly
+- ✅ But: Works consistently across all PDF viewers
+- ✅ But: No font or encoding issues
+
+## Alternatives
+
+If you need searchable text, consider:
+1. **OCR after conversion:** Use Tesseract with Telugu language pack
+2. **Re-typesetting:** Manually recreate the document with proper fonts
+3. **Font embedding fix:** Use tools like pdftk or Adobe Acrobat
+
+## License
+
+This script is provided as-is for educational and personal use.
+
+## Contributing
+
+Feel free to modify and improve this script for your needs. Common enhancements:
+- Add OCR capability
+- Support batch processing natively
+- Add progress bar (using tqdm)
+- Support other output formats
+
+## Author
+
+Created for Telugu language preservation and digital library efforts.
+
+## Acknowledgments
+
+- **pdf2image:** PDF to image conversion
+- **Pillow:** Image processing
+- **img2pdf:** Image to PDF conversion
+- **Poppler:** Underlying PDF rendering engine
+
+---
+
+**Need help?** Check the troubleshooting section or verify all dependencies are correctly installed.
