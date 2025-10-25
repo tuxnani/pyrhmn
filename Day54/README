@@ -1,0 +1,1 @@
+This script generates a large synthetic Dask DataFrame and performs parallel processing with group-by and aggregation operations, returning the results as a Pandas DataFrame.
