@@ -1,0 +1,1 @@
+This script creates a Flask web application that collects data from Twitter, Reddit, and YouTube using their respective APIs. It includes a simple HTML interface for users to input search queries and view results.
